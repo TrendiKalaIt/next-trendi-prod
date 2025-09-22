@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Your custom CSS styles or additional imports go below these lines.
+   The error is likely happening around the start of the '@tailwind' rules. 
+*/
