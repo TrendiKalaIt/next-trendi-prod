@@ -3,6 +3,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import "./globals.css";
 import RootProvider from "./RootProvider";
+import NewUpdatesMsg from "@/components/NewUpdatesMsg";
 
 export const metadata = {
   title: "TrendiKala",
@@ -21,6 +22,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <RootProvider>
+           <NewUpdatesMsg/> 
           <Navbar links={navLinks} />
           <main>{children}</main>
           <Footer />
