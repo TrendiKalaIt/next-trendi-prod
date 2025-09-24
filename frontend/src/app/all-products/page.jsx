@@ -116,7 +116,7 @@ const Products = () => {
               onClick={() => {
                 setSelectedCategory('');
                 setSelectedSubcategory('');
-                filterProducts(''); // reset to all products
+                filterProducts(''); 
               }}
               className="font-body text-white text-sm bg-gray-400 px-4 py-2 rounded hover:bg-gray-500"
             >
