@@ -1,19 +1,30 @@
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import "./globals.css"; 
+// src/app/layout.js
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import "./globals.css";
+import RootProvider from "./RootProvider";
 
 export const metadata = {
   title: "TrendiKala",
   description: "Best online store for fashion products",
 };
 
+const navLinks = [
+  { name: "Home", path: "/" },
+  { name: "Products", path: "/all-products" },
+  { name: "About Us", path: "/about-us" },
+  { name: "Manufacturing", path: "/manufacturing" },
+];
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
+        <RootProvider>
+          <Navbar links={navLinks} />
+          <main>{children}</main>
+          <Footer />
+        </RootProvider>
       </body>
     </html>
   );
