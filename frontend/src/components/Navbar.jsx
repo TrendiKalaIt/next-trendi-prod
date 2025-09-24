@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { Heart, ShoppingCart, Search, User, Menu, X } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../store/authSlice';
 import { selectCartCount, clearLocalCart } from '../store/cartSlice';
@@ -18,6 +18,7 @@ export default function Navbar({ links = [] }) {
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
   const router = useRouter();
+  const pathname = usePathname();
   const [searchText, setSearchText] = useState('');
   const cartCount = useSelector(selectCartCount);
   const wishlistCount = useSelector(selectWishlistCount);
@@ -28,11 +29,16 @@ export default function Navbar({ links = [] }) {
     }
   }, [dispatch, user]);
 
-  useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 400);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+   useEffect(() => {
+    if (pathname === '/') {
+      const handleScroll = () => setIsScrolled(window.scrollY > 400);
+      window.addEventListener('scroll', handleScroll);
+      return () => window.removeEventListener('scroll', handleScroll);
+    } else {
+      // Other pages: navbar always fixed
+      setIsScrolled(true);
+    }
+  }, [pathname]);
 
   useEffect(() => {
     if (!showUserDropdown) return;
@@ -44,16 +50,21 @@ export default function Navbar({ links = [] }) {
   }, [showUserDropdown]);
 
   const getNavLinkClass = (isActive) => {
-    if (isScrolled) {
+    if (pathname === '/') {
+      return isScrolled
+        ? isActive
+          ? 'text-green-700 border-green-500'
+          : 'text-[#9CAF88] hover:text-green-700 border-transparent hover:border-[#9CAF88]'
+        : isActive
+        ? 'text-green-500 border-green-200'
+        : 'lg:text-white text-green-500 hover:text-white border-transparent hover:border-green-200';
+    } else {
       return isActive
         ? 'text-green-700 border-green-500'
         : 'text-[#9CAF88] hover:text-green-700 border-transparent hover:border-[#9CAF88]';
-    } else {
-      return isActive
-        ? ' text-green-500 border-green-200'
-        : 'lg:text-white text-green-500 hover:text-white border-transparent hover:border-green-200';
     }
   };
+
 
   const mobileNavItemClass = (isActive) =>
     `block px-3 py-2 rounded-md text-base font-medium transition-colors ${
@@ -96,7 +107,7 @@ export default function Navbar({ links = [] }) {
   return (
     <nav
       className={`px-4 lg:fixed left-0 right-0 z-10 transition-all duration-300 ${
-        isScrolled ? 'bg-white shadow-md top-0' : 'bg-transparent lg:mt-8'
+        isScrolled ? 'bg-white shadow-md top-0' : 'bg-transparent lg:mt-0'
       }`}
     >
       <div className="max-w-7xl mx-auto flex justify-between items-center py-2 ">

@@ -7,7 +7,17 @@ module.exports = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
-    extend: {},
+     extend: {
+      fontFamily: {
+        home: ['Libre Baskerville', 'serif'],
+        heading: ['Playfair Display', 'serif'],
+        body: ['Lato', 'sans-serif'],
+        
+      },
+      colors: {
+        luxuryGold: '#C5A880', // optional gold accent
+      },
+    },
   },
   plugins: [],
 }
