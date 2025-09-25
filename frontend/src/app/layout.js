@@ -12,7 +12,7 @@ export const metadata = {
 
 const navLinks = [
   { name: "Home", path: "/" },
-  { name: "Products", path: "/all-products" },
+  { name: "Categories", path: "/categories" },
   { name: "About Us", path: "/about-us" },
   { name: "Manufacturing", path: "/manufacturing" },
 ];
