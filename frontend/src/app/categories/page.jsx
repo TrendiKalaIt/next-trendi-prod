@@ -28,7 +28,6 @@ const CategoriesPage = () => {
         // Fetch Products
         const prodRes = await axios.get(`${API_URL}/api/products`);
         setProducts(prodRes.data?.data || []);
-
       } catch (err) {
         console.error(err);
         setError("Failed to fetch data from server");
@@ -46,16 +45,17 @@ const CategoriesPage = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 items-center px-6 lg:px-12 py-12 pt-[80px] gap-10 bg-gray-50">
         {/* Left Text */}
         <div className="space-y-6 relative pr-6 md:pr-10">
-          <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight">
+          <h1 className="font-heading text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight">
             Summer Sale is Here 🎉
           </h1>
-          <h2 className="text-2xl md:text-3xl font-semibold text-amber-600">
+          <h2 className="font-home text-2xl md:text-3xl font-semibold text-amber-600">
             Flat 50% Off
           </h2>
-          <p className="text-gray-600 text-lg max-w-md">
-            Upgrade your wardrobe with our exclusive summer collection. Limited time offer, don’t miss out!
+          <p className="font-home text-gray-600 text-lg max-w-md">
+            Upgrade your wardrobe with our exclusive summer collection. Limited
+            time offer, don't miss out!
           </p>
-          <button className="bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition font-medium shadow-md">
+          <button className="font-heading bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition font-medium shadow-md">
             Shop Now →
           </button>
 
@@ -74,7 +74,7 @@ const CategoriesPage = () => {
       </div>
 
       {/* Categories Section */}
-      <div className="flex justify-between items-center px-6 lg:px-12 py-6">
+      <div className=" font-home flex justify-between items-center px-6 lg:px-12 py-6">
         <h2 className="text-2xl font-bold text-gray-800">Categories</h2>
         <button className="text-gray-600 hover:text-black">View all</button>
       </div>
@@ -86,32 +86,34 @@ const CategoriesPage = () => {
       ) : error ? (
         <p className="text-red-600 px-6">{error}</p>
       ) : (
-        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-6 px-6 lg:px-12 mb-10">
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4 px-6 lg:px-12 mb-10">
           {categories.map((cat) => (
             <div
               key={cat._id}
               className="flex flex-col items-center cursor-pointer"
               onClick={() => router.push(`/categories/${cat._id}`)}
             >
-              <div className="w-20 h-20 flex items-center justify-center border rounded-full bg-gray-100 hover:bg-gray-200 transition">
+              <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 flex items-center justify-center border rounded-full bg-gray-100 hover:bg-gray-200 overflow-hidden transform hover:scale-105 transition-transform duration-300">
                 {cat.icon ? (
                   <img
                     src={cat.icon}
                     alt={cat.name}
-                    className="w-10 h-10 object-contain"
+                    className="w-full h-full object-cover rounded-full"
                   />
                 ) : (
                   <span className="text-sm text-gray-500">{cat.name}</span>
                 )}
               </div>
-              <p className="mt-2 text-gray-700 text-sm font-medium">{cat.name}</p>
+              <p className="font-home font- mt-2 text-gray-700 text-base font-medium">
+                {cat.name}
+              </p>
             </div>
           ))}
         </div>
       )}
 
       {/* New Arrivals / Products Section */}
-      <div className="flex justify-between items-center px-6 lg:px-12 py-6">
+      <div className="font-home flex justify-between items-center px-6 lg:px-12 py-6">
         <h2 className="text-2xl font-bold text-gray-800">New Arrivals</h2>
         <button className="text-gray-600 hover:text-black">View all</button>
       </div>
