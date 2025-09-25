@@ -13,7 +13,7 @@ export default function FAQPage() {
       faqs: [
         {
           question: 'What types of women clothing do you offer?',
-          answer: 'We offer a wide range of women’s clothing including sarees, dresses, tops, skirts, and ethnic wear.',
+          answer: "We offer a wide range of women's clothing including sarees, dresses, tops, skirts, and ethnic wear.",
         },
         {
           question: 'Do you have size charts available?',
