@@ -70,7 +70,7 @@ export default function CancellationReturnRefund() {
             </li>
             <li>
               Approved refunds will be processed to your original payment method
-              within 7–10 business days.
+              within 7-10 business days.
             </li>
             <li>
               For COD (Cash on Delivery) orders, refunds will be issued via bank
