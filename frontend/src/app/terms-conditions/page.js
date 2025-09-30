@@ -1,6 +1,6 @@
 export default function TermsConditionsPage() {
   return (
-    <div className="max-w-4xl mx-auto pt-[80px] p-6 text-gray-800">
+    <div className="max-w-4xl mx-auto md:pt-[70px] p-6 text-gray-800">
       {/* Title & Effective Date */}
       <h1 className="text-3xl font-bold font-heading text-[#9CAF88] mb-2">
         Terms & Conditions

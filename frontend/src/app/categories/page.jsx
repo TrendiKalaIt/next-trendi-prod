@@ -41,7 +41,7 @@ const CategoriesPage = () => {
 
   return (
     <div className="bg-white">
-      {/* 🔥 Hero Section */}
+      {/*  Hero Section */}
       <div className="grid grid-cols-1 md:grid-cols-2 items-center px-6 lg:px-12 py-12 pt-[80px] gap-10 bg-gray-50">
         {/* Left Text */}
         <div className="space-y-6 relative pr-6 md:pr-10">
@@ -87,29 +87,32 @@ const CategoriesPage = () => {
         <p className="text-red-600 px-6">{error}</p>
       ) : (
         <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4 px-6 lg:px-12 mb-10">
-          {categories.map((cat) => (
-            <div
-              key={cat._id}
-              className="flex flex-col items-center cursor-pointer"
-              onClick={() => router.push(`/categories/${cat._id}`)}
-            >
-              <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 flex items-center justify-center border rounded-full bg-gray-100 hover:bg-gray-200 overflow-hidden transform hover:scale-105 transition-transform duration-300">
-                {cat.icon ? (
-                  <img
-                    src={cat.icon}
-                    alt={cat.name}
-                    className="w-full h-full object-cover rounded-full"
-                  />
-                ) : (
-                  <span className="text-sm text-gray-500">{cat.name}</span>
-                )}
-              </div>
-              <p className="font-home font- mt-2 text-gray-700 text-base font-medium">
-                {cat.name}
-              </p>
-            </div>
-          ))}
-        </div>
+  {categories.map((cat) => (
+    <div
+      key={cat._id}
+      className="flex flex-col items-center cursor-pointer"
+      onClick={() =>
+        router.push(`/${cat.name.toLowerCase().replace(/\s+/g, "-")}`)
+      }
+    >
+      <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 flex items-center justify-center border rounded-full bg-gray-100 hover:bg-gray-200 overflow-hidden transform hover:scale-110 transition duration-300 ease-in-out shadow-sm hover:shadow-lg">
+        {cat.icon ? (
+          <img
+            src={cat.icon}
+            alt={cat.name}
+            className="w-full h-full object-cover rounded-full"
+          />
+        ) : (
+          <span className="text-sm text-gray-500">{cat.name}</span>
+        )}
+      </div>
+      <p className="mt-2 text-gray-700 text-base font-medium capitalize">
+        {cat.name}
+      </p>
+    </div>
+  ))}
+</div>
+
       )}
 
       {/* New Arrivals / Products Section */}

@@ -7,7 +7,7 @@ const { sendOtpEmail } = require('../utils/sendEmail');
 
 // Utility to generate OTP
 const generateOTP = () => {
-  return Math.floor(100000 + Math.random() * 900000).toString(); // 6-digit OTP
+  return Math.floor(100000 + Math.random() * 900000).toString(); 
 };
 
 // Temporary in-memory store 
@@ -72,20 +72,6 @@ exports.registerUser = async (req, res) => {
           </div>
       </div>
     `;
-
-    // const transporter = nodemailer.createTransport({
-    //   service: 'gmail',
-    //   auth: {
-    //     user: process.env.EMAIL_USER,
-    //     pass: process.env.EMAIL_PASS
-    //   }
-    // });
-
-    // await transporter.sendMail({
-    //   to: email,
-    //   subject: 'Verify Your Email for Trendikala',
-    //   html: emailHtml
-    // });
 
 
     await sendOtpEmail(email, 'Verify Your Email for Trendikala', emailHtml);
@@ -199,19 +185,7 @@ exports.resendOtp = async (req, res) => {
       </div>
     `;
 
-    // const transporter = nodemailer.createTransport({
-    //   service: 'gmail',
-    //   auth: {
-    //     user: process.env.EMAIL_USER,
-    //     pass: process.env.EMAIL_PASS
-    //   }
-    // });
-
-    // await transporter.sendMail({
-    //   to: email,
-    //   subject: 'Resend OTP - Trendikala',
-    //   html: emailHtml
-    // });
+  
 
 
     await sendOtpEmail(email, 'Resend OTP - Trendikala', emailHtml);
@@ -270,7 +244,7 @@ exports.forgotPassword = async (req, res) => {
     const token = crypto.randomBytes(32).toString('hex');
 
     user.resetPasswordToken = crypto.createHash('sha256').update(token).digest('hex');
-    user.resetPasswordExpires = Date.now() + 15 * 60 * 1000; // 15 minutes from now
+    user.resetPasswordExpires = Date.now() + 15 * 60 * 1000; 
     await user.save();
 
     const resetUrl = `${process.env.CLIENT_URL}/reset-password/${token}`;
