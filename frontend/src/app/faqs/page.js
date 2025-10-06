@@ -1,4 +1,4 @@
-'use client'; // Required because we use useState and useEffect
+'use client'; 
 
 import { useState, useEffect } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';

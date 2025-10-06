@@ -55,6 +55,40 @@ const orderSchema = new mongoose.Schema({
   isGuest: { type: Boolean, default: false }
 });
 
+// orderSchema.pre('save', async function (next) {
+//   if (!this.isNew) return next();  // Only generate orderId for new orders
+
+//   if (!this.items.length) {
+//     return next(new Error("Order must have at least one item"));
+//   }
+
+//   const firstProduct = await Product.findById(this.items[0].product).populate('category');
+//   if (!firstProduct) {
+//     return next(new Error("Product not found for order"));
+//   }
+
+//   const dateStr = moment().format('MMDD');  
+//   const productCode = firstProduct.productCode;  
+
+//   // Fetch and update the global counter
+//   let counter = await Counter.findOneAndUpdate(
+//     { id: 'globalOrderSeq' },  
+//     { $inc: { seq: 1 } }, 
+//     { new: true, upsert: true }  
+//   );
+
+//   if (!counter) {
+//     return next(new Error("Failed to update counter sequence."));
+//   }
+
+//   const seqNumber = String(counter.seq).padStart(4, '0');  
+
+//   // Construct the final orderId: MMDD-productCode-sequence
+//   this.orderId = `${dateStr}-${productCode}-${seqNumber}`;
+
+//   next();
+// });
+
 
 orderSchema.pre('save', async function (next) {
   if (!this.isNew) return next();

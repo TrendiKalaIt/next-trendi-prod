@@ -18,7 +18,7 @@ const enquiryRoutes = require('./routes/enquiryRoutes');
 const categoryRoutes = require('./routes/categoryRoutes');
 const paymentRoutes = require('./routes/paymentRoutes');
 const couponRoutes = require("./routes/couponRoutes");
-
+const path = require('path');
 
 // Load environment variables
 
@@ -34,6 +34,7 @@ app.use(compression());
 
 // Middleware to parse JSON
 app.use(express.json());
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Connect to MongoDB
 connectDb();

@@ -9,7 +9,7 @@ exports.generateCustomerEmail = (order, shippingInfo, orderItems, paymentMethod,
       <div style="background-color: #bedaa4; padding: 20px; color: white;">
         <h1>Thanks for your order, ${shippingInfo.fullName.split(' ')[0]}</h1>
         <p>Your order number is <strong>${order.orderId}</strong></p>
-        <p><strong>Payment Method:</strong> ${paymentMethod}</p>
+        <p><strong>Payment Method:</strong>${paymentMethod}</p>
       </div>
       <div style="padding: 20px;">
         ${orderSummaryTable}

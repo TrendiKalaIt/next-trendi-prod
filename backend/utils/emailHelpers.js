@@ -1,3 +1,4 @@
+
 // emails/emailHelpers.js
 exports.getOrderSummaryTable = (orderItems, totalAmount, shippingCost) => {
   // Subtotal (without shipping)
@@ -12,7 +13,7 @@ exports.getOrderSummaryTable = (orderItems, totalAmount, shippingCost) => {
       <td style="padding: 10px; border: 1px solid #ddd; text-align: left; font-size: 14px;">
         <strong>${item.productName}</strong><br />
         <span style="color: #666; font-size: 13px;">${item.domainName || ''}</span><br />
-        ${item.color ? `Color: ${item.color}` : ''} ${item.size ? `| Size: ${item.size}` : ''}
+         ${item.color?`Color : ${item.color}` : ''}${item.size?` | Size : ${item.size}` : ''}
       </td>
       <td style="padding: 10px; border: 1px solid #ddd; text-align: center; font-size: 14px;">
         ${item.quantity} ${item.unit || 'Unit'}

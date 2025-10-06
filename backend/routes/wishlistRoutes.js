@@ -12,4 +12,10 @@ router.delete('/:productId', authMiddleware, wishlistController.removeProduct);
 // Get all wishlist products for the logged-in user
 router.get('/', authMiddleware, wishlistController.getWishlist);
 
+// // Check if a product is in wishlist for logged-in user
+// router.get('/check/:productId', authMiddleware, wishlistController.checkProduct);
+
+// // Clear entire wishlist for logged-in user
+// router.delete('/clear', authMiddleware, wishlistController.clearWishlist);
+
 module.exports = router;

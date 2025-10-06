@@ -14,10 +14,10 @@ exports.generateAdminEmail = (order, shippingInfo, orderItems, paymentMethod, to
         <p><strong>Payment Method:</strong> ${paymentMethod}</p>
         ${orderSummaryTable}
         <h3>Customer & Shipping Information:</h3>
-        <p><strong>Name:</strong> ${shippingInfo.fullName}</p>
-        <p><strong>Phone:</strong> ${shippingInfo.phoneNumber}</p>
-        <p><strong>Email:</strong> ${shippingInfo.emailAddress}</p>
-        <p><strong>Address:</strong> ${shippingInfo.streetAddress}${shippingInfo.apartment ? ', ' + shippingInfo.apartment : ''}, ${shippingInfo.townCity}, ${shippingInfo.state} - ${shippingInfo.zipcode}</p>
+        <p><strong>Name:</strong>${shippingInfo.fullName}</p>
+        <p><strong>Phone:</strong>${shippingInfo.phoneNumber}</p>
+        <p><strong>Email:</strong>${shippingInfo.emailAddress}</p>
+        <p><strong>Address:</strong>${shippingInfo.streetAddress}${shippingInfo.apartment}, ${shippingInfo.townCity}, ${shippingInfo.state} - ${shippingInfo.zipcode}</p>
 
       </div>
       <div style="background-color: #f5f5f5; padding: 15px; text-align: center; font-size: 12px; color: #777; border-top: 1px solid #e0e0e0;">

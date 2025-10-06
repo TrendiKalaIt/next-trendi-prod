@@ -2,14 +2,18 @@ const express = require('express');
 const upload = require('../middleware/multer');
 const productController = require('../controllers/productController');
 const protect = require('../middleware/authMiddleware');
+const multer = require('multer');
 
 const router = express.Router();
 
-// ========================== Get All Products ==========================
+// Get all products
 router.get('/', productController.getAllProducts);
 
-// ========================== Search Products ==========================
+// SEARCH must come before /:id
 router.get('/search', productController.searchProducts);
+
+// Get single product by ID
+// router.get('/:id', productController.getProduct);
 
 // ========================== Get Product by Slug (SEO Friendly) ==========================
 router.get('/slug/:slug', productController.getProductBySlug);
@@ -28,8 +32,15 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// ========================== Add Product Review ==========================
-router.post('/:id/reviews', protect, productController.addProductReview);
 
+
+// Add product review
+
+router.post(
+  '/:id/reviews',
+  protect,
+  upload.array('media', 5), // max 5 files per review
+  productController.addProductReview
+);
 
 module.exports = router;
