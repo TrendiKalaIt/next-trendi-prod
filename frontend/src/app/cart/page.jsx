@@ -95,7 +95,7 @@ function CartPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
+    <div className="min-h-screen bg-gray-50 p-8 md:mt-12 ">
       <div className="flex justify-center items-center mb-12 space-x-8 ">
         {['Shopping cart', 'Checkout details', 'Order complete'].map((step, i) => (
           <div key={step} className="flex flex-col items-center">

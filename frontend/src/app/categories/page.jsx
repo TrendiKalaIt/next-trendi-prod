@@ -1,10 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from 'next/navigation';
 import axios from "axios";
 import ProductCard from "@/components/ProductCard";
 import Spinner from "@/components/Spinner";
+
 
 const CategoriesPage = () => {
   const router = useRouter();
@@ -40,38 +41,50 @@ const CategoriesPage = () => {
   }, [API_URL]);
 
   return (
-    <div className="bg-white">
-      {/* 🔥 Hero Section */}
-      <div className="grid grid-cols-1 md:grid-cols-2 items-center px-6 lg:px-12 py-12 pt-[80px] gap-10 bg-gray-50">
-        {/* Left Text */}
-        <div className="space-y-6 relative pr-6 md:pr-10">
-          <h1 className="font-heading text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight">
-            Summer Sale is Here 🎉
-          </h1>
-          <h2 className="font-home text-2xl md:text-3xl font-semibold text-amber-600">
-            Flat 50% Off
-          </h2>
-          <p className="font-home text-gray-600 text-lg max-w-md">
-            Upgrade your wardrobe with our exclusive summer collection. Limited
-            time offer, don't miss out!
-          </p>
-          <button className="font-heading bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition font-medium shadow-md">
-            Shop Now →
-          </button>
+    <div className="bg-white md:mt-[52px]">
 
-          {/* Vertical Divider */}
-          <div className="hidden md:block absolute top-0 right-0 h-full w-0.5 bg-gray-300"></div>
+
+
+      {/* Container for the two sections */}
+      <div className="relative w-full h-5/6   overflow-hidden flex flex-col md:flex-row">
+
+        {/* Left Section - uses a CSS clip-path to create the diagonal shape */}
+        <div
+          className="flex-1 h-[400px] p-8 flex items-center justify-center relative bg-green-100"
+          style={{ clipPath: 'polygon(0 0, 100% 0, 80% 100%, 0 100%)' }}
+        >
+          <div className="space-y-6 relative pr-6 md:pr-10  ">
+            <h1 className="font-heading text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight">
+              Explore Our Categories
+            </h1>
+            {/* <h2 className="font-home text-2xl md:text-3xl font-semibold text-amber-600">
+              Flat 50% Off
+            </h2> */}
+            <p className="font-home text-gray-600 text-lg max-w-md">
+              Discover styles that match your vibe! Browse our collections and find your perfect fit.
+            </p>
+            <button className="font-heading bg-blue-100 text-white px-6 py-3 rounded-lg hover:bg-blue-200 transition font-medium shadow-md">
+              Shop Now →
+            </button>
+
+
+          </div>
+
         </div>
 
-        {/* Right Image */}
-        <div className="flex justify-center md:justify-end w-full">
-          <img
-            src="/Trendikala-category.webp"
-            alt="Summer Sale Banner"
-            className="rounded-xl shadow-lg w-full h-full object-cover"
-          />
+        {/* Right Section - also uses a CSS clip-path for the diagonal shape. 
+        It overlaps the left section to create the seamless look. */}
+        <div
+          className="flex-1 p-8 flex items-center justify-center relative -ml-16 md:-ml-32 lg:-ml-48    bg-cover  "
+          style={{
+            clipPath: 'polygon(20% 0, 100% 0, 100% 100%, 0 100%)',
+            backgroundImage: "url('/madubala.webp')",
+          }}
+        >
         </div>
       </div>
+
+
 
       {/* Categories Section */}
       <div className=" font-home flex justify-between items-center px-6 lg:px-12 py-6">
@@ -86,7 +99,7 @@ const CategoriesPage = () => {
       ) : error ? (
         <p className="text-red-600 px-6">{error}</p>
       ) : (
-        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4 px-6 lg:px-12 mb-10">
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2 px-6 lg:px-12 mb-10">
           {categories.map((cat) => (
             <div
               key={cat._id}
@@ -129,7 +142,7 @@ const CategoriesPage = () => {
           No products found
         </p>
       ) : (
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 px-6 lg:px-12 mb-12">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 px-6 lg:px-12 mb-12">
           {products.map((product) => (
             <ProductCard key={product._id} product={product} />
           ))}

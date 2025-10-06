@@ -29,7 +29,7 @@ export default function AboutUs() {
       </section>
 
       {/* Our Journey Section */}
-      <section className="container mx-auto py-16 px-4 md:px-8 bg-white rounded-xl shadow-sm mt-[-60px] relative z-6">
+      <section className="container mx-auto py-16 px-4 md:px-8 bg-white rounded-xl shadow-sm  relative z-6">
         <div className="flex flex-col md:flex-row items-center gap-12">
           <div className="md:w-2/3 text-center md:text-left">
             <h2 className="font-heading text-3xl md:text-4xl font-bold mb-6 font-playfair-display text-[#9CAF88]">Our Journey</h2>

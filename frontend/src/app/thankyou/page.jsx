@@ -1,9 +1,10 @@
+"use client";
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { CheckCircle } from 'lucide-react';
 
-import { clearOrder, selectPlacedOrder } from '../utility/orderSlice'; 
+import { clearOrder, selectPlacedOrder } from '../../store/orderSlice'; 
 
 const Thankyou = () => {
   const dispatch = useDispatch();

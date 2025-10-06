@@ -24,7 +24,7 @@ export default function RootLayout({ children }) {
         <RootProvider>
            <NewUpdatesMsg/> 
           <Navbar links={navLinks} />
-          <main>{children}</main>
+          <main className="">{children}</main>
           <Footer />
         </RootProvider>
       </body>

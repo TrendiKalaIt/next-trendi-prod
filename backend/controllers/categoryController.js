@@ -3,8 +3,8 @@ const Product = require('../models/Product');
 
 exports.createCategory = async (req, res) => {
   try {
-    const { name,categoryCode, description, icon, parent } = req.body;
-    const category = new Category({ name,categoryCode, description, icon, parent: parent || null });
+    const { name, categoryCode, description, icon, parent } = req.body;
+    const category = new Category({ name, categoryCode, description, icon, parent: parent || null });
     await category.save();
     res.status(201).json(category);
   } catch (err) {
@@ -31,3 +31,15 @@ exports.getCategoryById = async (req, res) => {
   }
 };
 
+exports.getCategoryBySlug = async (req, res) => {
+  try {
+    const { slug } = req.params;
+    const category = await Category.findOne({ slug }).populate('parent', 'name slug');
+
+    if (!category) return res.status(404).json({ error: 'Category not found' });
+
+    res.json({ success: true, data: category });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};

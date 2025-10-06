@@ -1,10 +1,11 @@
+"use client";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { placeOrder, setOrderDetails } from "../../store/orderSlice";
-import { clearCart } from "../utility/cartSlice";
+import { clearCart } from "../../store/cartSlice";
 import { clearOrderDetails, clearCartFromCheckout } from "../../store/checkoutSlice";
 import { SquareX } from "lucide-react";
 import AddressForm from "../../components/AddressForm";
