@@ -35,10 +35,10 @@ const ProductCard = ({ product = {} }) => {
   const availableSizes = sizes.filter((s) => s.stock > 0);
   const cheapestSize = availableSizes.length
     ? availableSizes.reduce((min, s) => {
-        const currentPrice = s.discountPrice || s.price;
-        const minPrice = min.discountPrice || min.price;
-        return currentPrice < minPrice ? s : min;
-      })
+      const currentPrice = s.discountPrice || s.price;
+      const minPrice = min.discountPrice || min.price;
+      return currentPrice < minPrice ? s : min;
+    })
     : null;
 
   const productPrice = cheapestSize ? cheapestSize.price : 0;
@@ -49,13 +49,34 @@ const ProductCard = ({ product = {} }) => {
   const isOutOfStock = (Math.floor(Number(productStock)) || 0) <= 0;
 
   const handleNavigate = () => {
-    if (product.slug && category?.name) {
-      const categorySlug = category.name.toLowerCase().replace(/\s+/g, "-");
-      router.push(`/women-products/${categorySlug}/${product.slug}`);
+    if (product.slug && category?.slug) {
+      router.push(`/${category.slug}/${product.slug}`);
     }
   };
 
-  const handleAddToCartClick = () => {
+
+
+  // const handleAddToCartClick = () => {
+  //   if (isOutOfStock) {
+  //     toast("Product is out of stock, please add it to wishlist");
+  //     return;
+  //   }
+  //   setModalType("cart");
+  //   setIsModalOpen(true);
+  // };
+
+  // const handleBuyNowClick = () => {
+  //   if (isOutOfStock) {
+  //     toast.error("Product is out of stock");
+  //     return;
+  //   }
+  //   setModalType("buy");
+  //   setIsModalOpen(true);
+  // };
+
+  // When opening modal
+  const handleAddToCartClick = (e) => {
+    e.stopPropagation(); // <-- stop bubbling to card click
     if (isOutOfStock) {
       toast("Product is out of stock, please add it to wishlist");
       return;
@@ -64,7 +85,8 @@ const ProductCard = ({ product = {} }) => {
     setIsModalOpen(true);
   };
 
-  const handleBuyNowClick = () => {
+  const handleBuyNowClick = (e) => {
+    e.stopPropagation(); // <-- stop bubbling to card click
     if (isOutOfStock) {
       toast.error("Product is out of stock");
       return;
@@ -225,18 +247,18 @@ const ProductCard = ({ product = {} }) => {
         {/* Content */}
         <div className="p-2 flex flex-col justify-between h-28 sm:h-32 md:h-34">
           <div className="overflow-hidden">
-            <p className="text-[10px] text-gray-400 uppercase truncate">
+            <p className="text-[14px] text-gray-400 uppercase truncate">
               {category?.name}
             </p>
             <h3
               onClick={handleNavigate}
-              className="text-[13px] font-bold text-gray-800 truncate cursor-pointer hover:underline"
+              className="text-[16px] font-bold text-gray-800 truncate cursor-pointer hover:underline"
             >
               {productName}
             </h3>
-            <p className="text-[10px] text-gray-500 truncate">{description}</p>
+            <p className="text-[14px] text-gray-500 truncate">{description}</p>
 
-            <div className="flex gap-1 pt-1">
+            <div className="flex gap-1">
               <p className="text-sm text-green-600">₹{productDiscountPrice}</p>
               {productDiscountPrice !== productPrice && (
                 <p className="text-sm text-gray-400 line-through">
@@ -250,7 +272,7 @@ const ProductCard = ({ product = {} }) => {
             <button
               onClick={handleAddToCartClick}
               disabled={isOutOfStock}
-              className={`flex-1 text-[10px] py-1 rounded-full text-gray-700 bg-gray-200 hover:bg-gray-300 disabled:bg-gray-300 disabled:text-gray-500`}
+              className={`flex-1 text-[14px] font-bold rounded-full text-gray-700 bg-gray-200 hover:bg-gray-300 disabled:bg-gray-300 disabled:text-gray-500`}
             >
               {isOutOfStock ? "Out of Stock" : "Add"}
             </button>
@@ -258,7 +280,7 @@ const ProductCard = ({ product = {} }) => {
             <button
               onClick={handleBuyNowClick}
               disabled={isOutOfStock}
-              className={`flex-1 text-[10px] py-1 rounded-full text-white bg-green-600 hover:bg-green-700 disabled:bg-gray-300 disabled:text-gray-500`}
+              className={`flex-1 text-[14px] font-bold rounded-full text-white bg-green-600 hover:bg-green-700 disabled:bg-gray-300 disabled:text-gray-500`}
             >
               Buy
             </button>
@@ -273,23 +295,22 @@ const ProductCard = ({ product = {} }) => {
         className="fixed z-50 inset-0 overflow-y-auto"
       >
         <div className="flex items-center justify-center min-h-screen px-4">
-          <Dialog.Panel className="bg-white rounded-xl shadow-xl p-4 w-full max-w-sm space-y-3">
-            <Dialog.Title className="text-lg font-bold text-green-700">
+          <Dialog.Panel className="bg-white  shadow-xl p-4 w-full max-w-sm space-y-3">
+            <Dialog.Title className="text-2xl font-bold text-green-700">
               Select Size & Color
             </Dialog.Title>
 
             {/* Colors */}
             <div>
-              <h4 className="text-sm text-gray-600 mb-1">Colors:</h4>
+              <h4 className="text-md text-gray-600 mb-1">Colors:</h4>
               <div className="flex gap-2">
                 {colors?.map((color) => (
                   <button
                     key={color.name}
-                    className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                      selectedColor === color.name
-                        ? "border-green-600 scale-110"
-                        : "border-gray-300"
-                    }`}
+                    className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${selectedColor === color.name
+                      ? "border-green-600 scale-110"
+                      : "border-gray-300"
+                      }`}
                     style={{ backgroundColor: color.hex }}
                     onClick={() => setSelectedColor(color.name)}
                   >
@@ -303,27 +324,28 @@ const ProductCard = ({ product = {} }) => {
 
             {/* Sizes */}
             <div className="flex flex-wrap gap-2">
+              <h4 className="text-md text-gray-600 mb-1">Sizes:</h4>
+
               {sizes?.map((size) => (
                 <button
                   key={size.size}
                   onClick={() => setSelectedSize(size.size)}
                   disabled={size.stock <= 0}
-                  className={`px-2 py-1 text-xs rounded-full border ${
-                    selectedSize === size.size
-                      ? "bg-green-600 text-white border-green-600"
-                      : "bg-gray-100 text-gray-700 border-gray-300 hover:bg-gray-200"
-                  } ${
-                    size.stock <= 0 ? "text-gray-400 cursor-not-allowed" : ""
-                  }`}
+                  className={`px-2 py-1 text-md p-10  border ${selectedSize === size.size
+                    ? "bg-green-600 text-white border-green-600"
+                    : "bg-gray-100 text-gray-700 border-gray-300 hover:bg-gray-200"
+                    } ${size.stock <= 0 ? "text-gray-400 cursor-not-allowed" : ""
+                    }`}
                 >
                   {size.size}
                 </button>
               ))}
+
             </div>
 
             {/* Quantity */}
             <div className="flex items-center gap-2">
-              <span className="text-sm text-gray-600">Qty:</span>
+              <span className="text-md text-gray-600">Qty:</span>
               <div className="flex items-center border rounded-full overflow-hidden">
                 <button
                   onClick={() => setQuantity(Math.max(1, quantity - 1))}

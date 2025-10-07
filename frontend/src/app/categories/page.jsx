@@ -39,18 +39,24 @@ const CategoriesPage = () => {
 
   return (
     <div className="bg-white md:mt-[52px]">
-      {/* Hero Section */}
+     
       <div className="relative w-full h-5/6 overflow-hidden flex flex-col md:flex-row">
+
+        {/* Background image for mobile */}
+        <div
+          className="absolute inset-0 md:hidden bg-cover bg-center"
+          style={{ backgroundImage: "url('/madubala.webp')" }}
+        ></div>
+
         {/* Left Section */}
         <div
-          className="flex-1 h-[400px] p-8 flex items-center justify-center relative bg-green-100"
-          style={{ clipPath: 'polygon(0 0, 100% 0, 80% 100%, 0 100%)' }}
+          className="flex-1 h-[400px] p-8 flex items-center justify-center relative md:bg-green-100  md:clip-path-[polygon(0_0,100%_0,80%_100%,0_100%)]"
         >
-          <div className="space-y-6 relative pr-6 md:pr-10">
-            <h1 className="font-heading text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight">
+          <div className="space-y-6 relative pr-6 md:pr-10 z-10 text-center md:text-left">
+            <h1 className="font-heading text-4xl md:text-5xl font-extrabold  md:text-gray-900 leading-tight">
               Explore Our Categories
             </h1>
-            <p className="font-home text-gray-600 text-lg max-w-md">
+            <p className="font-home text-gray-600 text-lg max-w-md mx-auto md:mx-0">
               Discover styles that match your vibe! Browse our collections and find your perfect fit.
             </p>
             <button className="font-heading bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition font-medium shadow-md">
@@ -59,20 +65,22 @@ const CategoriesPage = () => {
           </div>
         </div>
 
-        {/* Right Section */}
+        {/* Right Section - only for md+ */}
         <div
-          className="flex-1 p-8 flex items-center justify-center relative -ml-16 md:-ml-32 lg:-ml-48 bg-cover"
+          className="hidden md:flex flex-1 p-8 items-center justify-center relative -ml-16 md:-ml-32 lg:-ml-48 bg-cover"
           style={{
             clipPath: 'polygon(20% 0, 100% 0, 100% 100%, 0 100%)',
             backgroundImage: "url('/madubala.webp')",
           }}
         ></div>
+
       </div>
+
 
       {/* Categories Section */}
       <div className="font-home flex justify-between items-center px-6 lg:px-12 py-6">
         <h2 className="text-2xl font-bold text-gray-800">Categories</h2>
-        <button className="text-gray-600 hover:text-black">View all</button>
+
       </div>
 
       {loading ? (
@@ -87,7 +95,9 @@ const CategoriesPage = () => {
             <div
               key={cat._id}
               className="flex flex-col items-center cursor-pointer"
-              onClick={() => router.push(`/categories/${cat._id}`)}
+              // onClick={() => router.push(`/categories/${cat.slug}`)}
+              onClick={() => router.push(`/${cat.slug}`)}
+
             >
               <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 flex items-center justify-center border rounded-full bg-gray-100 hover:bg-gray-200 overflow-hidden transform hover:scale-105 transition-transform duration-300">
                 {cat.icon ? (
@@ -111,7 +121,7 @@ const CategoriesPage = () => {
       {/* Products Section */}
       <div className="font-home flex justify-between items-center px-6 lg:px-12 py-6">
         <h2 className="text-2xl font-bold text-gray-800">New Arrivals</h2>
-        <button className="text-gray-600 hover:text-black">View all</button>
+        <button className="text-white   bg-gray-400 hover:bg-gray-500 p-2 px-4 rounded">View all</button>
       </div>
 
       {loading ? (
