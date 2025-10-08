@@ -75,7 +75,7 @@ const CategoryPage = () => {
             alt="Coming Soon"
             className="w-40 sm:w-60 md:w-72"
           /> */}
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800">
+          <h2 className="font-heading text-4xl font-bold text-[#9CAF88] uppercase text-center ">
             Coming Soon!
           </h2>
           <p className="text-gray-500 text-center max-w-md">

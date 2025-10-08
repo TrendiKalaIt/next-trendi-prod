@@ -136,7 +136,7 @@ export default function Navbar({ links = [] }) {
 
         <div className="font-home lg:flex lg:space-x-10 md:space-y-3 lg:space-y-0">
           {/* Desktop Links */}
-          <ul className="hidden  md:ps-20 md:flex space-x-10 lg:space-x-5 text-base font-medium">
+          <ul className="hidden  md:ps-20 md:flex space-x-10 lg:space-x-5 text-[18px] font-medium">
             {links.map((link) => (
               <li key={link.name}>
                 <a

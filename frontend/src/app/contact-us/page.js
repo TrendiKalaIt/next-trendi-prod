@@ -32,13 +32,13 @@ export default function ContactUsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 py-10 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-100 md:mt-10 px-4 lg:px-8 pb-2">
       <div className="max-w-4xl mx-auto">
-        <h1 className="font-heading text-4xl font-extrabold text-[#9CAF88] text-center pt-9 mb-12">
+        <h1 className="font-heading text-4xl font-extrabold text-[#9CAF88] text-center py-8">
           Get in Touch
         </h1>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 bg-white shadow-md rounded-xl">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 bg-white shadow-md rounded-xl ">
           {/* Contact Form */}
           <div className="p-8">
             <h2 className="font-home text-2xl font-bold text-[#9CAF88] mb-6">
