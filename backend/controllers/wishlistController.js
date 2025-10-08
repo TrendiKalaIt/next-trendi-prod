@@ -98,6 +98,26 @@ exports.removeProduct = async (req, res) => {
 };
 
 // Get all wishlist products for user
+// exports.getWishlist = async (req, res) => {
+//     const userId = req.user?._id || req.body.userId;
+
+//     if (!userId) {
+//         return res.status(401).json({ success: false, message: 'User ID is required' });
+//     }
+
+//     try {
+//         const wishlist = await Wishlist.findOne({ user: userId }).populate('products.product').lean();
+
+//         if (!wishlist) {
+//             return res.json({ success: true, data: [] });
+//         }
+
+//         res.json({ success: true, data: wishlist.products });
+//     } catch (error) {
+//         console.error("Error in getWishlist:", error);
+//         res.status(500).json({ success: false, message: error.message });
+//     }
+// };
 exports.getWishlist = async (req, res) => {
     const userId = req.user?._id || req.body.userId;
 
@@ -106,7 +126,13 @@ exports.getWishlist = async (req, res) => {
     }
 
     try {
-        const wishlist = await Wishlist.findOne({ user: userId }).populate('products.product').lean();
+        const wishlist = await Wishlist.findOne({ user: userId })
+            .populate({
+                path: 'products.product',
+                select: 'productName slug category media sizes',
+                populate: { path: 'category', select: 'name slug' }
+            })
+            .lean();
 
         if (!wishlist) {
             return res.json({ success: true, data: [] });
@@ -118,3 +144,4 @@ exports.getWishlist = async (req, res) => {
         res.status(500).json({ success: false, message: error.message });
     }
 };
+

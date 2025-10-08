@@ -87,7 +87,7 @@ const AddressSection = ({
   };
 
   return (
-    <div className="mb-8">
+    <div className="mb-8 md:mt-6">
       <h2 className=" font-heading text-2xl text-green-600 font-semibold mb-4">Delivery Address</h2>
       {loading ? (
         <p>Loading addresses...</p>

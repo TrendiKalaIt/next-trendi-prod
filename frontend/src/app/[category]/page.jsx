@@ -46,7 +46,7 @@ const CategoryPage = () => {
   if (!categoryData) return <p className="text-center mt-10">Category not found</p>;
 
   return (
-   
+
     <div className="px-6 lg:px-12 py-8 lg:mt-16">
       {/* Category Poster / Hero Section */}
       {(categoryData.image || categoryData.icon) && (
@@ -55,9 +55,16 @@ const CategoryPage = () => {
           style={{ backgroundImage: `url(${categoryData.image || categoryData.icon})` }}
         >
           <div className="w-full h-full bg-black/30 flex items-center justify-center rounded-lg">
-            <h1 className="text-white text-3xl md:text-5xl font-bold">{categoryData.name}</h1>
+            <h1 className="text-white font-heading text-3xl md:text-5xl font-bold">{categoryData.name}</h1>
           </div>
         </div>
+      )}
+
+      {/* Products Section Header */}
+      {products.length > 0 && (
+        <h2 className="font-home text-2xl font-bold text-[#9CAF88] uppercase mb-6">
+          Explore products in <span className="underline "> {categoryData.name}</span>
+        </h2>
       )}
 
       {/* Products Grid */}

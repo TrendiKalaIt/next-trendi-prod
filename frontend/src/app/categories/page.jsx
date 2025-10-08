@@ -52,14 +52,14 @@ const CategoriesPage = () => {
         <div
           className="flex-1 h-[400px] p-8 flex items-center justify-center relative md:bg-green-100  md:clip-path-[polygon(0_0,100%_0,80%_100%,0_100%)]"
         >
-          <div className="space-y-6 relative pr-6 md:pr-10 z-10 text-center md:text-left">
+          <div className="space-y-6 relative pr-6 md:pr-10 z-1 text-center md:text-left">
             <h1 className="font-heading text-4xl md:text-5xl font-extrabold  md:text-gray-900 leading-tight">
               Explore Our Categories
             </h1>
             <p className="font-home text-gray-600 text-lg max-w-md mx-auto md:mx-0">
               Discover styles that match your vibe! Browse our collections and find your perfect fit.
             </p>
-            <button className="font-heading bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition font-medium shadow-md">
+            <button className="font-heading bg-[#9caf88de] text-white px-6 py-3 rounded-lg hover:bg-[#9CAF88] hover:ring-1 transition font-medium shadow-md">
               Shop Now →
             </button>
           </div>
@@ -79,7 +79,7 @@ const CategoriesPage = () => {
 
       {/* Categories Section */}
       <div className="font-home flex justify-between items-center px-6 lg:px-12 py-6">
-        <h2 className="text-2xl font-bold text-gray-800">Categories</h2>
+        <h2 className="font-home text-lg font-bold text-[#9CAF88] uppercase">Categories</h2>
 
       </div>
 
@@ -110,7 +110,7 @@ const CategoriesPage = () => {
                   <span className="text-sm text-gray-500">{cat.name}</span>
                 )}
               </div>
-              <p className="mt-2 text-gray-700 text-base font-medium capitalize">
+              <p className="mt-2 text-[#9CAF88] text-base font-medium capitalize">
                 {cat.name}
               </p>
             </div>
@@ -120,7 +120,7 @@ const CategoriesPage = () => {
 
       {/* Products Section */}
       <div className="font-home flex justify-between items-center px-6 lg:px-12 py-6">
-        <h2 className="text-2xl font-bold text-gray-800">New Arrivals</h2>
+        <h2 className="font-home text-lg font-bold text-[#9CAF88] uppercase ">New Arrivals</h2>
         <button className="text-white   bg-gray-400 hover:bg-gray-500 p-2 px-4 rounded">View all</button>
       </div>
 
@@ -135,7 +135,7 @@ const CategoriesPage = () => {
           No products found
         </p>
       ) : (
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 px-6 lg:px-12 mb-12">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 px-3 lg:px-12 mb-12">
           {products.map((product) => (
             <ProductCard key={product._id} product={product} />
           ))}
