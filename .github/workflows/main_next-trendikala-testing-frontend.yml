@@ -9,44 +9,55 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
     steps:
+      # 1️⃣ Checkout code
       - uses: actions/checkout@v4
 
+      # 2️⃣ Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20.x'
 
+      # 3️⃣ Install dependencies & build frontend
       - name: Install dependencies and build
         working-directory: ./frontend
         run: |
           npm install
           npm run build
 
+      # 4️⃣ Upload build folder for deployment
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
           name: frontend-artifact
-          path: ./frontend  # upload entire folder for deploy
+          path: ./frontend
 
   deploy:
     runs-on: ubuntu-latest
     needs: build
+    permissions:
+      id-token: write
+      contents: read
+
     steps:
+      # 1️⃣ Download build artifact
       - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
           name: frontend-artifact
           path: ./frontend  # deploy from this path
 
+      # 2️⃣ Login to Azure using creds
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_6B9824638481498F8BB3FC758A74A84E }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_7C937C217D60464FB5AE3B1EBBFECA2B }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_2775CF7B46DB4B1B92EFAC010F7146B3 }}
-          client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
+      # 3️⃣ Deploy to Azure Web App
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
