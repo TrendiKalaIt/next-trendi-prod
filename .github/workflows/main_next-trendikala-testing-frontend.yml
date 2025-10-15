@@ -54,6 +54,7 @@ jobs:
           client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_6B9824638481498F8BB3FC758A74A84E }}
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_7C937C217D60464FB5AE3B1EBBFECA2B }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_2775CF7B46DB4B1B92EFAC010F7146B3 }}
+          client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
@@ -62,4 +63,5 @@ jobs:
           app-name: 'NEXT-trendikala-testing-frontend'
           slot-name: 'Production'
           package: .
+
           
