@@ -27,14 +27,14 @@ jobs:
         working-directory: ./frontend
         run: |
           npm install
-          npm run build
+          npm run build        # Next.js build folder will be created (.next)
 
       # 4️⃣ Upload build folder for deployment
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
           name: frontend-artifact
-          path: ./frontend
+          path: ./frontend/.next   # Upload only build output
 
   deploy:
     runs-on: ubuntu-latest
@@ -49,13 +49,17 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: frontend-artifact
-          path: ./frontend  # deploy from this path
+          path: ./frontend/.next   # Deploy from this folder
 
-      # 2️⃣ Login to Azure using creds
+      # 2️⃣ Login to Azure using Service Principal
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          auth-type: SERVICE_PRINCIPAL
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_6B9824638481498F8BB3FC758A74A84E }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_7C937C217D60464FB5AE3B1EBBFECA2B }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_2775CF7B46DB4B1B92EFAC010F7146B3 }}
+          client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
 
       # 3️⃣ Deploy to Azure Web App
       - name: Deploy to Azure Web App
@@ -63,4 +67,4 @@ jobs:
         with:
           app-name: 'NEXT-trendikala-testing-frontend'
           slot-name: 'Production'
-          package: ./frontend
+          package: ./frontend/.next
