@@ -13,7 +13,7 @@ jobs:
       contents: read
 
     steps:
-      # 1️⃣ Checkout code
+      # 1️⃣ Checkout repository
       - uses: actions/checkout@v4
 
       # 2️⃣ Setup Node.js
@@ -28,6 +28,7 @@ jobs:
         run: |
           npm install
           npm run build
+          npm ci --production   # ensure production deps for runtime
 
       # 4️⃣ Upload build artifacts (include .next, node_modules, package.json)
       - name: Upload build artifact
@@ -36,8 +37,8 @@ jobs:
           name: frontend-artifact
           path: |
             ./frontend/.next
-            ./frontend/package.json
             ./frontend/node_modules
+            ./frontend/package.json
           retention-days: 1
 
   deploy:
@@ -48,7 +49,7 @@ jobs:
       contents: read
 
     steps:
-      # 1️⃣ Download build artifacts
+      # 1️⃣ Download frontend artifact
       - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
@@ -73,7 +74,7 @@ jobs:
           slot-name: 'Production'
           package: ./frontend
 
-      # 4️⃣ Set Startup Command for Next.js (ensure the app runs correctly)
+      # 4️⃣ Configure Startup Command for Next.js
       - name: Configure Startup Command
         uses: azure/cli@v1
         with:
