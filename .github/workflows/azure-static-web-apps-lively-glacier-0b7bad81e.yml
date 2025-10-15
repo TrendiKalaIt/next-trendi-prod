@@ -24,13 +24,13 @@ jobs:
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_LIVELY_GLACIER_0B7BAD81E }}
-          repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
-          ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
-          # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
-          app_location: "./frontend" # App source code path
-          api_location: "" # Api source code path - optional
-          output_location: ".next" # Built app content directory - optional
+          ###### Repository/Build Configurations ######
+          app_location: "./frontend"     # Your Next.js app folder
+          api_location: "ignore"         # No API folder, skip Azure Functions
+          output_location: ".next"       # Next.js build output folder
+          skip_api_build: true           # Prevent API build entirely
           ###### End of Repository/Build Configurations ######
 
   close_pull_request_job:
@@ -44,4 +44,3 @@ jobs:
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_LIVELY_GLACIER_0B7BAD81E }}
           action: "close"
-
