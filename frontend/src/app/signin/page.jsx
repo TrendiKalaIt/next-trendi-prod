@@ -7,19 +7,18 @@ import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { login } from '../../store/authSlice';
-import { showLoader, hideLoader } from '../../store/loaderSlice';
+import { showLoader, hideLoader } from '@/store/loaderSlice';
 
 const SignIn = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+    const [loading, setLoading] = useState(false); // ✅ local loading state
     const router = useRouter();
     const dispatch = useDispatch();
 
-    // Extract redirect from query params (Next.js way)
     const searchParams = useSearchParams();
     const redirectPath = searchParams.get('redirect') || '/';
-
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -35,6 +34,7 @@ const SignIn = () => {
         }
 
         try {
+            setLoading(true);           // ✅ start button loading
             dispatch(showLoader());
 
             const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`, {
@@ -60,6 +60,7 @@ const SignIn = () => {
             toast.error(error.response?.data?.message || 'Login failed');
             console.error('Login error:', error);
         } finally {
+            setLoading(false);          // ✅ stop button loading
             dispatch(hideLoader());
         }
     };
@@ -134,9 +135,11 @@ const SignIn = () => {
                     {/* Submit */}
                     <button
                         type="submit"
-                        className="font-home w-full bg-[#93A87E] hover:bg-[#93a87eae] text-white font-bold py-2 px-6 rounded-full transition"
+                        className={`font-home w-full bg-[#93A87E] hover:bg-[#93a87eae] text-white font-bold py-2 px-6 rounded-full transition ${loading ? 'cursor-not-allowed opacity-70' : ''
+                            }`}
+                        disabled={loading}  // ✅ disable button while signing in
                     >
-                        SIGN IN
+                        {loading ? 'Signing in...' : 'SIGN IN'}  {/* ✅ dynamic button text */}
                     </button>
                 </form>
 
@@ -147,6 +150,7 @@ const SignIn = () => {
                         type="button"
                         className="font-home w-full border border-[#35894E] text-[#35894E] font-bold py-2 px-6 rounded-full hover:bg-green-50 transition"
                         onClick={() => router.push(`/create-account?redirect=${encodeURIComponent(redirectPath)}`)}
+                        disabled={loading}  // ✅ disable during login
                     >
                         CREATE ACCOUNT
                     </button>

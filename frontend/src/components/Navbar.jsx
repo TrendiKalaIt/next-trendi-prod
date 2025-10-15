@@ -4,10 +4,10 @@ import { useState, useEffect, useRef } from 'react';
 import { Heart, ShoppingCart, Search, User, Menu, X } from 'lucide-react';
 import { useRouter, usePathname } from 'next/navigation';
 import { useSelector, useDispatch } from 'react-redux';
-import { logout } from '../store/authSlice';
-import { selectCartCount, clearLocalCart } from '../store/cartSlice';
-import { selectWishlistCount, fetchWishlist } from '../store/wishlistSlice';
-import { persistor } from '../store/store';
+import { logout } from '@/store/authSlice';
+import { selectCartCount, clearLocalCart } from '@/store/cartSlice';
+import { selectWishlistCount, fetchWishlist } from '@/store/wishlistSlice';
+import { persistor } from '@/store/store';
 
 export default function Navbar({ links = [] }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -29,7 +29,7 @@ export default function Navbar({ links = [] }) {
     }
   }, [dispatch, user]);
 
-   useEffect(() => {
+  useEffect(() => {
     if (pathname === '/') {
       const handleScroll = () => setIsScrolled(window.scrollY > 400);
       window.addEventListener('scroll', handleScroll);
@@ -56,8 +56,8 @@ export default function Navbar({ links = [] }) {
           ? 'text-green-700 border-green-500'
           : 'text-[#9CAF88] hover:text-green-700 border-transparent hover:border-[#9CAF88]'
         : isActive
-        ? 'text-green-500 border-green-200'
-        : 'lg:text-white text-green-500 hover:text-white border-transparent hover:border-green-200';
+          ? 'text-green-500 border-green-200'
+          : 'lg:text-white text-green-500 hover:text-white border-transparent hover:border-green-200';
     } else {
       return isActive
         ? 'text-green-700 border-green-500'
@@ -67,8 +67,7 @@ export default function Navbar({ links = [] }) {
 
 
   const mobileNavItemClass = (isActive) =>
-    `block px-3 py-2 rounded-md text-base font-medium transition-colors ${
-      isActive ? 'bg-green-100 text-green-700' : 'text-gray-600 hover:text-green-700 hover:bg-gray-50'
+    `block px-3 py-2 rounded-md text-base font-medium transition-colors ${isActive ? 'bg-green-100 text-green-700' : 'text-gray-600 hover:text-green-700 hover:bg-gray-50'
     }`;
 
   const handleAuth = () => {
@@ -106,9 +105,8 @@ export default function Navbar({ links = [] }) {
 
   return (
     <nav
-      className={`px-4 lg:fixed left-0 right-0 z-10 transition-all duration-300 ${
-        isScrolled ? 'bg-white shadow-md top-0' : 'bg-transparent lg:mt-0'
-      }`}
+      className={`px-4 lg:fixed left-0 right-0 z-10 transition-all duration-300 ${isScrolled ? 'bg-white shadow-md top-0' : 'bg-transparent lg:mt-0'
+        }`}
     >
       <div className="max-w-7xl mx-auto flex justify-between items-center py-2 ">
         {/* Logo */}
@@ -151,9 +149,8 @@ export default function Navbar({ links = [] }) {
 
           {/* Icons */}
           <div
-            className={`flex items-center space-x-4 transition-colors duration-300 md:justify-end ${
-              isScrolled ? 'text-green-700' : 'lg:text-white text-[#9CAF88]'
-            }`}
+            className={`flex items-center space-x-4 transition-colors duration-300 md:justify-end ${isScrolled ? 'text-green-700' : 'lg:text-white text-[#9CAF88]'
+              }`}
           >
             {user && (
               <a href="/cart" className="relative">
@@ -165,14 +162,16 @@ export default function Navbar({ links = [] }) {
                 )}
               </a>
             )}
-            <a href="/wishlist" className="relative">
-              <Heart className="w-6 h-6 cursor-pointer hover:text-green-500 transition" />
-              {wishlistCount > 0 && (
-                <span className="absolute -top-2 -right-2 bg-[#9CAF88] text-white text-xs font-semibold rounded-full w-5 h-5 flex items-center justify-center">
-                  {wishlistCount}
-                </span>
-              )}
-            </a>
+            {user && (
+              <a href="/wishlist" className="relative">
+                <Heart className="w-6 h-6 cursor-pointer hover:text-green-500 transition" />
+                {wishlistCount > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-[#9CAF88] text-white text-xs font-semibold rounded-full w-5 h-5 flex items-center justify-center">
+                    {wishlistCount}
+                  </span>
+                )}
+              </a>
+            )}
             {/* User/Login Button with Dropdown */}
             <div className="relative user-dropdown hidden md:block">
               {user ? (
@@ -183,7 +182,7 @@ export default function Navbar({ links = [] }) {
                   aria-haspopup="true"
                   aria-expanded={showUserDropdown}
                 >
-                  <div className="w-8 h-8 rounded-full bg-[#9CAF88] text-white flex items-center justify-center text-sm font-semibold shadow-md overflow-hidden">
+                  <div className="w-10 h-10 rounded-full bg-[#9CAF88] text-white flex items-center justify-center text-md font-semibold shadow-md overflow-hidden">
                     {profileImageUrl ? (
                       <img
                         src={profileImageUrl || "https://res.cloudinary.com/dq70cmqwb/image/upload/v1751035700/samples/smile.jpg"}
@@ -198,7 +197,7 @@ export default function Navbar({ links = [] }) {
                         .toUpperCase()
                     )}
                   </div>
-                  <span className={`ml-2 text-sm font-home ${getNavLinkClass(false)}`}>
+                  <span className={`ml-2 text-ms font-home ${getNavLinkClass(false)}`}>
                     {user.name}
                   </span>
                   <svg
@@ -220,7 +219,7 @@ export default function Navbar({ links = [] }) {
                   type="button"
                 >
                   <User className="w-6 h-6 cursor-pointer transition" />
-                  <span className="ml-1 text-sm font-home">Login</span>
+                  <span className="ml-1 text-md font-home">Login</span>
                 </button>
               )}
               {/* Dropdown menu */}

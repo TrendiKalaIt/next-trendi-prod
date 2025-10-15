@@ -1,11 +1,16 @@
-// src/components/Footer.jsx
+"use client"; // Required for Redux hooks
+
 import React from 'react';
 import Link from 'next/link';
 import { SiRazorpay, SiFacebook, SiInstagram, SiYoutube, SiGooglepay, SiPaypal, SiAmazonpay } from 'react-icons/si';
 import { FaCcMastercard } from 'react-icons/fa6';
 import { FaCcVisa, FaCcApplePay } from 'react-icons/fa';
+import { useSelector } from "react-redux"; // ✅ Redux hook
+import { selectCurrentUser } from "@/store/authSlice"; // ✅ Redux selector
 
 const Footer = () => {
+  const user = useSelector(selectCurrentUser); // ✅ Get current user
+
   return (
     <>
       <footer className="bg-[#bedaa4] text-gray-800 py-10 px-6">
@@ -36,7 +41,14 @@ const Footer = () => {
           <div>
             <h3 className="font-home font-bold text-lg mb-4">ACCOUNT / POLICIES</h3>
             <ul className="space-y-2">
-              <li><Link href="/create-account" className="font-body hover:text-lime-700 transition duration-300">Create Account</Link></li>
+              {/* Show only if user is NOT logged in */}
+              {!user && (
+                <li>
+                  <Link href="/create-account" className="font-body hover:text-lime-700 transition duration-300">
+                    Create Account
+                  </Link>
+                </li>
+              )}
               <li><Link href="/cancellation-return-policy" className="font-body hover:text-lime-700 transition duration-300">Cancellation, Return & Refund Policy</Link></li>
               <li><Link href="/privacy-policy" className="font-body hover:text-lime-700 transition duration-300">Privacy Policy</Link></li>
               <li><Link href="/terms-conditions" className="font-body hover:text-lime-700 transition duration-300">Terms & Conditions</Link></li>

@@ -38,7 +38,7 @@ const Thankyou = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center font-inter">
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center font-inter md:mt-16">
       <div className="w-full max-w-4xl bg-white shadow-xl p-4 sm:p-6 md:p-4">
         <div className="bg-gradient-to-r rounded-xl from-[#D4F387] to-[#A8E6CF] text-green-900 p-2 sm:p-6 flex flex-col items-center text-center mb-6 shadow-lg">
           <div className="flex lg:flex-row flex-col items-center mb-3">

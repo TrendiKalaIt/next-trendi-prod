@@ -1,9 +1,11 @@
-// src/app/layout.js
+// ✅ This file must NOT have "use client"
+
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import "./globals.css";
 import RootProvider from "./RootProvider";
 import NewUpdatesMsg from "@/components/NewUpdatesMsg";
+import ClientToaster from "./ClientToaster";
 
 export const metadata = {
   title: "TrendiKala",
@@ -22,9 +24,10 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <RootProvider>
-           <NewUpdatesMsg/> 
+          <ClientToaster /> 
+          <NewUpdatesMsg />
           <Navbar links={navLinks} />
-          <main className="">{children}</main>
+          <main>{children}</main>
           <Footer />
         </RootProvider>
       </body>

@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { motion, AnimatePresence } from "framer-motion";
-import { useRouter } from "next/navigation"; // replaces useNavigate
+import { useParams, useRouter } from "next/navigation"; // replaces useNavigate
 import { addToCart } from "@/store/cartSlice";
 import { setOrderDetails } from "@/store/checkoutSlice";
 import { setReviews } from "@/store/reviewSlice";
@@ -17,8 +17,12 @@ import ProductReviews from "@/components/productDetails/ProductReviews";
 import ProductReviewForm from "@/components/productDetails/ProductReviewForm";
 import SizeChartModel from "@/components/productDetails/SizeChartModel.jsx";
 
-const ProductDetailPage = ({ params }) => {
-const { product: slug } = params;  // dynamic route: /categories/[category]/[product]
+
+const ProductDetailPage = () => {
+  const params = useParams(); 
+  const slug = params.product;
+  const category = params.category;
+
   const dispatch = useDispatch();
   const router = useRouter();
   const user = useSelector((state) => state.auth.user);

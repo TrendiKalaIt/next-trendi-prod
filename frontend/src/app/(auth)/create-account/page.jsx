@@ -6,10 +6,12 @@ import { Eye, EyeOff } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
-import { showLoader, hideLoader } from '../../store/loaderSlice';
+import { showLoader, hideLoader } from '@/store/loaderSlice';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 
-const SignUp = ({ searchParams }) => {
+const SignUp = () => {
+  
   const [email, setEmail] = useState('');
   const [mobile, setMobile] = useState('');
   const [fullName, setFullName] = useState('');
@@ -21,7 +23,8 @@ const SignUp = ({ searchParams }) => {
   const router = useRouter();
   const dispatch = useDispatch();
 
-  const redirectPath = searchParams?.redirect || '/';
+  const searchParams = useSearchParams();
+  const redirectPath = searchParams.get('redirect') || '/';
 
   const handleSignUp = async (e) => {
     e.preventDefault();
@@ -62,7 +65,7 @@ const SignUp = ({ searchParams }) => {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col items-center pt-8 px-4 mb-2 mt-12">
       {/* Header */}
-      <header className="w-full max-w-6xl flex flex-col  items-center justify-between px-4 mb-10">
+      <header className="w-full max-w-6xl flex    -col  items-center justify-between px-4 mb-10">
         <div className="flex items-center mb-4 md:mb-0">
           <div className="flex items-center space-x-2">
             <div className="w-[100px] md:w-[120px]">

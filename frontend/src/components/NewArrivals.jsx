@@ -73,7 +73,7 @@ const NewArrivals = () => {
           <p className="font-body text-base sm:text-lg mb-4 drop-shadow hidden md:block">
             {current.description}
           </p>
-          <Link href="/all-products">
+          <Link href="/categories">
             <button className="font-heading hidden md:block bg-[#9CAF88] text-white p-3 rounded-full text-sm font-semibold">
               VIEW COLLECTIONS
             </button>
@@ -98,7 +98,7 @@ const NewArrivals = () => {
       </div>
 
       {/* Mobile Button */}
-      <Link href="/all-products">
+      <Link href="/categories">
         <button className="font-body block sm:hidden mt-2 bg-[#9CAF88] text-white px-2 rounded-full text-sm">
           COLLECTIONS
         </button>

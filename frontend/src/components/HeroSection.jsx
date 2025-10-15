@@ -6,7 +6,7 @@ const HeroSection = () => {
   const router = useRouter();
 
   const handleViewDetails = () => {
-    router.push("/all-products"); // ✅ Next.js navigation
+    router.push("/categories"); 
   };
 
   return (
@@ -27,7 +27,7 @@ const HeroSection = () => {
           <div className="w-full md:w-1/2 flex flex-col h-full lg:ms-7">
             <div className="relative h-full flex justify-center md:justify-end xl:pe-20">
               <img
-                src="/madhubala (4).webp"
+                src="/images/women/Anarkali/AFSANA (2).png"
                 alt="madubala"
                 className="rounded-b-full object-cover object-bottom md:h-[340px] w-[250px] sm:w-[300px] hidden md:block"
                 loading="eager"

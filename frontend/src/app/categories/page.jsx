@@ -121,7 +121,6 @@ const CategoriesPage = () => {
       {/* Products Section */}
       <div className="font-home flex justify-between items-center px-6 lg:px-12 py-6">
         <h2 className="font-home text-lg font-bold text-[#9CAF88] uppercase ">New Arrivals</h2>
-        <button className="text-white   bg-gray-400 hover:bg-gray-500 p-2 px-4 rounded">View all</button>
       </div>
 
       {loading ? (

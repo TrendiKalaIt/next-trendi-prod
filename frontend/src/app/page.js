@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
-import { showLoader, hideLoader } from "../store/loaderSlice";
+import { showLoader, hideLoader } from "@/store/loaderSlice";
 import ProductCardSkeleton from "../components/ProductCardSkeleton";
 import Spinner from "../components/Spinner";
 import dynamic from "next/dynamic";

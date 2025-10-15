@@ -99,7 +99,7 @@ export default function AboutUs() {
             Dive into our curated selection and find something truly special.
           </p>
           <a
-            href="/all-products"
+            href="/categories"
             className="font-heading inline-block bg-[#9CAF88] text-white px-8 py-2 rounded-full font-semibold text-lg hover:bg-gray-500 transition-colors duration-300 shadow-lg hover:shadow-xl"
           >
             Shop Now
