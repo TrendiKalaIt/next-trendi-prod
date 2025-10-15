@@ -9,42 +9,35 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20.x'
 
-      - name: Install & Build (Frontend only)
+      - name: Install dependencies and build
         working-directory: ./frontend
         run: |
           npm install
           npm run build
 
-      - name: Upload build folder for deployment
+      - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
           name: frontend-artifact
-          path: ./frontend
+          path: ./frontend  # upload entire folder for deploy
 
   deploy:
     runs-on: ubuntu-latest
     needs: build
-    permissions:
-      id-token: write
-      contents: read
-
     steps:
       - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
           name: frontend-artifact
-          path: .
+          path: ./frontend  # deploy from this path
 
       - name: Login to Azure
         uses: azure/login@v2
@@ -59,4 +52,4 @@ jobs:
         with:
           app-name: 'NEXT-trendikala-testing-frontend'
           slot-name: 'Production'
-          package: .
+          package: ./frontend
