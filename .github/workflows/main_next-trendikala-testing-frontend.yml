@@ -13,28 +13,31 @@ jobs:
       contents: read
 
     steps:
-      # Checkout code
+      # 1️⃣ Checkout code
       - uses: actions/checkout@v4
 
-      # Setup Node.js
+      # 2️⃣ Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20.x'
 
-      # Install dependencies & build
+      # 3️⃣ Install dependencies & build frontend
       - name: Install dependencies and build
+        working-directory: ./frontend
         run: |
-          cd frontend
           npm install
           npm run build
 
-      # Upload entire frontend folder for deployment
-      - name: Upload frontend folder
+      # 4️⃣ Upload build artifacts (include .next, node_modules, package.json)
+      - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: frontend-build
-          path: ./frontend
+          name: frontend-artifact
+          path: |
+            ./frontend/.next
+            ./frontend/package.json
+            ./frontend/node_modules
           retention-days: 1
 
   deploy:
@@ -45,14 +48,14 @@ jobs:
       contents: read
 
     steps:
-      # Download frontend folder
-      - name: Download frontend artifact
+      # 1️⃣ Download build artifacts
+      - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
-          name: frontend-build
+          name: frontend-artifact
           path: ./frontend
 
-      # Login to Azure
+      # 2️⃣ Login to Azure using Service Principal
       - name: Login to Azure
         uses: azure/login@v2
         with:
@@ -62,10 +65,21 @@ jobs:
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_2775CF7B46DB4B1B92EFAC010F7146B3 }}
           client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
 
-      # Deploy to Azure
+      # 3️⃣ Deploy to Azure Web App
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'NEXT-trendikala-testing-frontend'
           slot-name: 'Production'
           package: ./frontend
+
+      # 4️⃣ Set Startup Command for Next.js (ensure the app runs correctly)
+      - name: Configure Startup Command
+        uses: azure/cli@v1
+        with:
+          azcliversion: 2.57.0
+          inlineScript: |
+            az webapp config set \
+              --name NEXT-trendikala-testing-frontend \
+              --resource-group next-trendikala-testing-frontend_group \
+              --startup-file "npx next start -p 8080"
