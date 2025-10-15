@@ -19,6 +19,22 @@ jobs:
         with:
           submodules: true
           lfs: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        working-directory: ./frontend
+        run: npm install
+
+      - name: Build Next.js
+        working-directory: ./frontend
+        run: |
+          npm run build
+          npm run export  # generates 'out' folder
+
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
@@ -27,10 +43,10 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
           ###### Repository/Build Configurations ######
-          app_location: "./frontend"     # Your Next.js app folder
-          api_location: "ignore"         # No API folder, skip Azure Functions
-          output_location: ".next"       # Next.js build output folder
-          skip_api_build: true           # Prevent API build entirely
+          app_location: "frontend"    # Next.js app folder
+          api_location: "ignore"      # No API folder
+          output_location: "frontend/out" # Exported static folder
+          skip_api_build: true
           ###### End of Repository/Build Configurations ######
 
   close_pull_request_job:
