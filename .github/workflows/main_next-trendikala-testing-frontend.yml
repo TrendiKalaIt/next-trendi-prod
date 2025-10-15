@@ -66,21 +66,11 @@ jobs:
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_2775CF7B46DB4B1B92EFAC010F7146B3 }}
           client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
 
-      # 3️⃣ Deploy to Azure Web App
+      # 3️⃣ Deploy to Azure Web App (with startup command)
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'NEXT-trendikala-testing-frontend'
           slot-name: 'Production'
           package: ./frontend
-
-      # 4️⃣ Configure Startup Command for Next.js
-      - name: Configure Startup Command
-        uses: azure/cli@v1
-        with:
-          azcliversion: 2.57.0
-          inlineScript: |
-            az webapp config set \
-              --name NEXT-trendikala-testing-frontend \
-              --resource-group next-trendikala-testing-frontend_group \
-              --startup-file "npx next start -p 8080"
+          startup-command: "npx next start -p 8080"
