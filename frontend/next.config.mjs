@@ -1,7 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true, // React ke strict mode me run kare
-  swcMinify: true,       // Faster builds aur smaller bundle size
+  reactStrictMode: true, // Recommended
+  swcMinify: true,       // Faster build
+  output: undefined,     // SSR ke liye static export disable
 };
 
 export default nextConfig;
