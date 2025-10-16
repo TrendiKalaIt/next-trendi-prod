@@ -62,4 +62,5 @@ jobs:
         with:
           app-name: 'trendikala-testing-frontend-prod'
           slot-name: 'Production'
-          package: ./node-app
+          package: ./frontend
+
