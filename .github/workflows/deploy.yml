@@ -1,4 +1,4 @@
-name: Deploy Next.js to Azure Web App - trendikala-testing-frontend-prod
+name: Build and deploy Next.js app to Azure Web App - trendikala-testing-frontend-prod
 
 on:
   push:
@@ -9,28 +9,25 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write    # OIDC ke liye zaroori
-      contents: read     # GitHub code read permission
 
     steps:
-      - name: Checkout Code
+      - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18.x'
+          node-version: '18.x'  # Next.js generally works best with 18.x
 
-      - name: Install Dependencies
+      - name: Install dependencies
         working-directory: ./frontend
         run: npm install
 
-      - name: Build App
+      - name: Build Next.js app
         working-directory: ./frontend
         run: npm run build
 
-      - name: Azure Login (OIDC Mode - No Secrets Required)
+      - name: Login to Azure
         uses: azure/login@v2
         with:
           client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_17742CF0ACB648FFA3198FA0EB274D82 }}
@@ -42,4 +39,4 @@ jobs:
         with:
           app-name: 'trendikala-testing-frontend-prod'
           slot-name: 'Production'
-          package: ./frontend
+          package: ./frontend    # deploy the whole frontend folder with .next inside
