@@ -50,12 +50,14 @@ jobs:
         with:
           name: node-app
 
+
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_4736D8F1E1B54AC8AE2193F4E82A2709 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_CBA3266525CE4875BCFD573FF69EDF57 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_888CB27E6AD34471AF58E6BD741F1B02 }}
+
 
 
       - name: Deploy to Azure Web App
@@ -65,4 +67,5 @@ jobs:
           app-name: 'Next-trendikala-testing-prod'
           slot-name: 'Production'
           package: ./frontend
+
 
