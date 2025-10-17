@@ -34,7 +34,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: node-app
-          path: .
+          path: ./frontend
 
   deploy:
     runs-on: ubuntu-latest
@@ -62,6 +62,7 @@ jobs:
         with:
           app-name: 'Next-trendikala-testing-prod'
           slot-name: 'Production'
-          package: .
+          package: ./frontend
 
           
+
