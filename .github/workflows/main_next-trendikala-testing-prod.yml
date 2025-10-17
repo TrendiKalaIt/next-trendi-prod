@@ -25,6 +25,7 @@ jobs:
       - name: Install dependencies and build
         run: |
           cd frontend
+          npm ci
           npm install
           npm run build
         shell: bash
@@ -42,4 +43,4 @@ jobs:
         with:
           app-name: 'Next-trendikala-testing-prod'
           slot-name: 'Production'
-          package: ./frontend
+          package: ./frontend/.next/standalone
