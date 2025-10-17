@@ -34,7 +34,11 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: node-app
-          path: ./frontend   # Only build output
+          path: |
+                ./frontend/.next
+                ./frontend/package.json
+                ./frontend/package-lock.json
+                ./frontend/next.config.js
           
       - name: Upload package.json and next.config.js
         uses: actions/upload-artifact@v4
@@ -77,5 +81,6 @@ jobs:
           app-name: 'Next-trendikala-testing-prod'
           slot-name: 'Production'
           package: ./node-app   # Deploy folder with .next + package.json + next.config.js
+
 
 
