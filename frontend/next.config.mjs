@@ -3,7 +3,8 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   output: "standalone",
-  assetPrefix: "./", 
+  distDir: ".next",
+  assetPrefix: "/", // zaroori
 };
 
 export default nextConfig;
