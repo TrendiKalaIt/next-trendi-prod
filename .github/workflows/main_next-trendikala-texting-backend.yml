@@ -30,12 +30,17 @@ jobs:
           npm run build --if-present
           npm run test --if-present
 
-      # Upload backend folder as artifact
-      - name: Upload backend artifact
+      # Zip backend folder
+      - name: Zip backend
+        run: zip -r release.zip ./*
+        working-directory: ./backend
+
+      # Upload zip as artifact
+      - name: Upload backend zip artifact
         uses: actions/upload-artifact@v4
         with:
-          name: backend-artifact
-          path: backend  # upload only backend folder
+          name: backend-zip
+          path: ./backend/release.zip
 
   deploy:
     runs-on: ubuntu-latest
@@ -45,15 +50,15 @@ jobs:
       contents: read
 
     steps:
-      # Download the backend artifact
-      - name: Download backend artifact
+      # Download zip artifact
+      - name: Download backend zip artifact
         uses: actions/download-artifact@v4
         with:
-          name: backend-artifact
+          name: backend-zip
 
-      # List files to verify structure
-      - name: List downloaded files
-        run: ls -R
+      # Optional: List zip contents for debugging
+      - name: List zip contents
+        run: unzip -l release.zip
 
       # Login to Azure using OIDC
       - name: Login to Azure
@@ -63,10 +68,10 @@ jobs:
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_13F27E04DB184407A7DAC1FCE3E57835 }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_D81FD10F6C664AB8BA05CDE6172DF7D1 }}
 
-      # Deploy backend to Azure Web App
+      # Deploy backend zip to Azure Web App
       - name: Deploy backend to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'NEXT-trendikala-texting-backend'
           slot-name: 'Production'
-          package: ./backend-artifact/backend  # correct path to backend folder
+          package: release.zip
