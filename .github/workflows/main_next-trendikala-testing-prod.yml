@@ -25,7 +25,6 @@ jobs:
       - name: Install dependencies and build
         run: |
           cd frontend
-          echo "NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL" >> .env
           npm install
           npm run build
           # Copy node_modules inside standalone folder so container can find dependencies
