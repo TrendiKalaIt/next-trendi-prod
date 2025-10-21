@@ -30,6 +30,7 @@ jobs:
           npm run build
           # Copy node_modules inside standalone folder so container can find dependencies
           cp -R .next/standalone/* .
+          cp -R .next/static ./public/.next/static
         shell: bash
         env:
           NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
