@@ -2,7 +2,10 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  output: "standalone",   // Ye change zaroori hai
+  output: "standalone",
+  env: {
+    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL, // ye line add karo
+  },
 };
 
 export default nextConfig;
