@@ -28,7 +28,7 @@ jobs:
           npm install
           npm run build
           # Copy node_modules inside standalone folder so container can find dependencies
-          cp -R node_modules .next/standalone/
+          cp -R .next/standalone/* .
         shell: bash
 
       - name: Login to Azure
