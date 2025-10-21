@@ -22,9 +22,13 @@ jobs:
         with:
           node-version: '20.x'
 
+      # Set environment variables and build
       - name: Install dependencies and build
         run: |
           cd frontend
+          # Set environment variables for build
+          echo "NEXT_PUBLIC_API_URL=https://trendikala-testing-ehewejdvfzdsdeen.southeastasia-01.azurewebsites.net" > .env.production
+          echo "NEXT_PUBLIC_RAZORPAY_KEY=${{ secrets.NEXT_PUBLIC_RAZORPAY_KEY }}" >> .env.production
           npm install
           npm run build
           # Copy node_modules inside standalone folder so container can find dependencies
