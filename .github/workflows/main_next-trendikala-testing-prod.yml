@@ -30,6 +30,8 @@ jobs:
           # Copy node_modules inside standalone folder so container can find dependencies
           cp -R .next/standalone/* .
         shell: bash
+        env:
+          NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
 
       - name: Login to Azure
         uses: azure/login@v2
