@@ -15,26 +15,28 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 1️⃣ Checkout the code
       - uses: actions/checkout@v4
 
+      # 2️⃣ Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20.x'
 
-      # Set environment variables and build
+      # 3️⃣ Install dependencies, set env, and build
       - name: Install dependencies and build
         run: |
           cd frontend
-          # Set environment variables for build
+          # Set production environment variables
           echo "NEXT_PUBLIC_API_URL=https://trendikala-testing-ehewejdvfzdsdeen.southeastasia-01.azurewebsites.net" > .env.production
           echo "NEXT_PUBLIC_RAZORPAY_KEY=${{ secrets.NEXT_PUBLIC_RAZORPAY_KEY }}" >> .env.production
           npm install
           npm run build
-          # Copy node_modules inside standalone folder so container can find dependencies
+          # Copy node_modules so Azure container can find dependencies
           cp -R .next/standalone/* .
-        shell: bash
 
+      # 4️⃣ Login to Azure
       - name: Login to Azure
         uses: azure/login@v2
         with:
@@ -43,6 +45,7 @@ jobs:
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_CBA3266525CE4875BCFD573FF69EDF57 }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_888CB27E6AD34471AF58E6BD741F1B02 }}
 
+      # 5️⃣ Deploy to Azure Web App
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
