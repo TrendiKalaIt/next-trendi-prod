@@ -22,19 +22,12 @@ jobs:
         with:
           node-version: '20.x'
 
-      # Set environment variables for production
-      - name: Set production environment variables
-        run: |
-          echo "NEXT_PUBLIC_API_URL=https://trendikala-testing-ehewejdvfzdsdeen.southeastasia-01.azurewebsites.net" > frontend/.env.production
-          echo "NEXT_PUBLIC_RAZORPAY_KEY=${{ secrets.NEXT_PUBLIC_RAZORPAY_KEY }}" >> frontend/.env.production
-
       - name: Install dependencies and build
         run: |
           cd frontend
           npm install
           npm run build
           # Copy node_modules inside standalone folder so container can find dependencies
-          cp -R node_modules .next/standalone/
           cp -R .next/standalone/* .
         shell: bash
 
