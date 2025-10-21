@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   output: "standalone",
-  assetPrefix: "./", 
+  assetPrefix: "/", 
 };
 
 export default nextConfig;
