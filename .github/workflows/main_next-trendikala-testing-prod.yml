@@ -27,6 +27,8 @@ jobs:
           cd frontend
           npm install
           npm run build
+          # Copy node_modules inside standalone folder so container can find dependencies
+          cp -R node_modules .next/standalone/
         shell: bash
 
       - name: Login to Azure
@@ -43,4 +45,3 @@ jobs:
           app-name: 'Next-trendikala-testing-prod'
           slot-name: 'Production'
           package: ./frontend/.next/standalone
-          
