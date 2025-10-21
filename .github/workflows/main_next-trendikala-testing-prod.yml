@@ -43,4 +43,4 @@ jobs:
           app-name: 'Next-trendikala-testing-prod'
           slot-name: 'Production'
           package: ./frontend/.next/standalone
-          startup-command: node server.js
+          
