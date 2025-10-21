@@ -2,7 +2,8 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  output: "standalone",   // Ye change zaroori hai
+  output: "standalone",
+  assetPrefix: "./", 
 };
 
 export default nextConfig;
