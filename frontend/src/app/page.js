@@ -39,7 +39,6 @@ export default function Home() {
   const [showFeatured, setShowFeatured] = useState(false);
 
   useEffect(() => {
-    
     const fetchProducts = async () => {
       try {
         dispatch(showLoader());

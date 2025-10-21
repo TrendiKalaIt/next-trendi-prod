@@ -17,7 +17,6 @@ const CategoriesPage = () => {
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
   useEffect(() => {
-    console.log("API URL:", process.env.NEXT_PUBLIC_API_URL);
     const fetchData = async () => {
       try {
         setLoading(true);
