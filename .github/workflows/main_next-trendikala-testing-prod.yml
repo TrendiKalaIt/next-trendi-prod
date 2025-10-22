@@ -1,4 +1,4 @@
-name: Build and Deploy Next.js to Azure
+name: Build and deploy Next.js to Azure
 
 on:
   push:
@@ -15,29 +15,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Checkout the code
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      # 2️⃣ Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20.x'
 
-      # 3️⃣ Install dependencies and build
       - name: Install dependencies and build
         run: |
           cd frontend
-          npm ci
+          npm install
           npm run build
-          # Prepare deployment folder
-          mkdir -p deploy
-          cp -R .next/standalone/* deploy/
-          cp -R .next/static deploy/_next/static
+          # Copy node_modules inside standalone folder so container can find dependencies
+          cp -R .next/standalone/* .
         shell: bash
 
-      # 4️⃣ Login to Azure
       - name: Login to Azure
         uses: azure/login@v2
         with:
@@ -46,10 +39,9 @@ jobs:
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_CBA3266525CE4875BCFD573FF69EDF57 }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_888CB27E6AD34471AF58E6BD741F1B02 }}
 
-      # 5️⃣ Deploy to Azure Web App
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'Next-trendikala-testing-prod'
           slot-name: 'Production'
-          package: ./frontend/deploy
+          package: ./frontend/.next/standalone
