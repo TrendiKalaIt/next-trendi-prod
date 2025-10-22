@@ -27,7 +27,25 @@ const path = require('path');
 const app = express();
 
 // Enable CORS
-app.use(cors());
+const allowedOrigins = [
+  "http://localhost:3000", // local frontend
+  "https://next-trendikala-testing-prod-bbahashmf2f9c0ep.centralindia-01.azurewebsites.net" // your deployed frontend
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    // allow requests with no origin (like Postman)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+  credentials: true,
+}));
+
 
 // **Enable compression**
 app.use(compression());
