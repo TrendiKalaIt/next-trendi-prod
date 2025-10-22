@@ -1,14 +1,10 @@
-name: Build and deploy Node.js app to Azure Web App - next-frontend
+name: Build and deploy Next.js app to Azure Web App
 
 on:
   push:
     branches:
       - main
   workflow_dispatch:
-
-permissions:
-  contents: read
-  id-token: write
 
 jobs:
   deploy:
@@ -27,8 +23,6 @@ jobs:
           cd frontend
           npm install
           npm run build
-          
-          cp -R .next/standalone/* .
         shell: bash
         env:
           NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
@@ -46,4 +40,4 @@ jobs:
         with:
           app-name: 'next-frontend'
           slot-name: 'Production'
-          package: ./frontend/.next/standalone
+          package: ./frontend
