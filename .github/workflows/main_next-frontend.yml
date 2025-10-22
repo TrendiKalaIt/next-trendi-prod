@@ -27,11 +27,13 @@ jobs:
           cd frontend
           npm install
           npm run build
-          
           cp -R .next/standalone/* .
         shell: bash
         env:
           NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
+
+      - name: Wait before deploy
+        run: sleep 15
 
       - name: Login to Azure
         uses: azure/login@v2
