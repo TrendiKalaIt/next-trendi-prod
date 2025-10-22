@@ -27,8 +27,8 @@ jobs:
           cd frontend
           npm install
           npm run build
-          
-          cp -R .next/standalone/* .
+
+          cp -R .next/* .
         shell: bash
         env:
           NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
