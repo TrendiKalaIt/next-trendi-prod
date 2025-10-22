@@ -39,7 +39,7 @@ export default function Home() {
   const [showFeatured, setShowFeatured] = useState(false);
 
   useEffect(() => {
-    console.log("API URL:", process.env.NEXT_PUBLIC_API_URL);
+
     const fetchProducts = async () => {
       try {
         dispatch(showLoader());
