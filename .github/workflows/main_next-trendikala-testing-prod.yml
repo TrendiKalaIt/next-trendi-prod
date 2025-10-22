@@ -28,7 +28,7 @@ jobs:
           npm install
           npm run build
           
-           cp -R .next/* .
+          cp -R .next/standalone/* .
         shell: bash
         env:
           NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
