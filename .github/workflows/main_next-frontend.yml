@@ -1,4 +1,4 @@
-name: Build and deploy Node.js app to Azure Web App - next-frontend
+name: Build and deploy Next.js to Azure
 
 on:
   push:
@@ -15,8 +15,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      
+      - uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
@@ -26,8 +26,9 @@ jobs:
       - name: Install dependencies and build
         run: |
           cd frontend
-          npm ci
+          npm install
           npm run build
+          cp -R .next/standalone/* .
         shell: bash
         env:
           NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
@@ -49,5 +50,4 @@ jobs:
           app-name: 'next-frontend'
           slot-name: 'Production'
           package: './frontend'
-          enable-oryx-build: true
-          use-run-from-package: true
+          
