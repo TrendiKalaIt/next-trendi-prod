@@ -28,8 +28,9 @@ const app = express();
 
 // Enable CORS
 const allowedOrigins = [
-  "http://localhost:3000", // local frontend
-  "https://next-trendikala-testing-prod-bbahashmf2f9c0ep.centralindia-01.azurewebsites.net" // your deployed frontend
+  "http://localhost:3000",
+  "https://next-trendikala-testing-prod-bbahashmf2f9c0ep.centralindia-01.azurewebsites.net",
+  "https://next-frontend-dwdpfvdsgabqc5ch.southeastasia-01.azurewebsites.net" // deployed frontend
 ];
 
 app.use(cors({
