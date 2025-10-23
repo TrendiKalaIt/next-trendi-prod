@@ -38,7 +38,7 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          auth-type: service-principal
+          auth-type: SERVICE_PRINCIPAL
           client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_DC9F0205D26D4CCFAEAE3C6F22DE335A }}
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_81601FC074524E919DB6789A4741B4D1 }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_BE41C20B0EDB4268920C204D612C4003 }}
